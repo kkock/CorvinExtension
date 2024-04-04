@@ -1,0 +1,606 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Corvin",
+  "patterns": [
+    {
+      "include": "#statements"
+    }
+  ],
+  "repository": {
+    "statements": {
+      "patterns": [
+        { "include": "#comment" },
+        { "include": "#blockcomment" },
+        { "include": "#string" },
+        { "include": "#keywords" },
+        { "include": "#templatestring" },
+        { "include": "#regex" },
+        { "include": "#templateregex" },
+        { "include": "#literal" },
+        { "include": "#operator" }
+      ]
+    },
+    "keywords": {
+      "patterns": [{
+					"name": "keyword.operator.expression.instanceof.corvin",
+					"match": "(?<!\\.|\\$)(?:\\b|!)instanceof\\b(?!\\$)"
+			},
+			{
+				"name": "keyword.operator.expression.export.corvin",
+				"match": "(?<!\\.|\\$)(?:\\b|!)export\\b(?!\\$)"
+			},
+			{
+				"name": "keyword.operator.expression.match.corvin",
+				"match": "(?<!\\.|\\$)(?:\\b|!)match\\b(?!\\$)"
+			},
+			{ "name": "storage.type.class.corvin", "match": "\\b(class)\\b" },
+			{ "name": "storage.type.enum.corvin", "match": "\\b(enum)\\b" },
+			{ "name": "storage.type.interface.corvin", "match": "\\b(interface)\\b" },
+			{ "name": "storage.type.namespace.corvin", "match": "\\b(namespace)\\b" },
+			{ "name": "storage.type.typedef.corvin", "match": "\\b(type)\\b" },
+			{ "name": "storage.modifier.corvin", "match": "\\b(public|private|protected|final|static|extends|implements|restricts)\\b" },
+			{
+        "name": "keyword.control.corvin",
+        "match": "\\b(if|else|do|while|return|yield|use|import|from|export|switch|case|default|break|continue)\\b"
+      }, {
+        "name": "invalid.illegal.corvin",
+        "match": "\\b(null)\\b"
+      }]
+    },
+    "string": {
+      "patterns":[{
+        "name": "string.operator.corvin",
+        "begin": "`",
+        "end": "`"
+      }, {
+        "name": "string.quoted.double.corvin",
+        "begin": "\"",
+        "end": "\"",
+        "patterns": [
+          {
+            "name": "constant.character.escape.corvin",
+            "match": "\\\\."
+          }
+        ]
+      }, {
+        "name": "string.quoted.single.corvin",
+        "begin": "'",
+        "end": "'",
+        "patterns": [
+          {
+            "name": "constant.character.escape.corvin",
+            "match": "\\\\."
+          }
+        ]
+      }]
+    },
+    "templatestring": {
+      "patterns": [{
+        "name": "string.interpolated.double.corvin",
+        "begin": "f\"",
+        "end": "\"",
+        "patterns": [
+          { "include": "#templatestring-element" },
+          {
+            "name": "constant.character.escape.corvin",
+            "match": "\\\\."
+          }
+        ]
+      }, {
+        "name": "string.interpolated.single.corvin",
+        "begin": "f'",
+        "end": "'",
+        "patterns": [
+          { "include": "#templatestring-element" },
+          {
+            "name": "constant.character.escape.corvin",
+            "match": "\\\\."
+          }
+        ]
+      }]
+    },
+    "templatestring-element": {
+      "name": "meta.interpolated.expression.corvin",
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.interpolated.begin.corvin"
+        }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.interpolated.end.corvin"
+        }
+      },
+      "patterns": [{ "include": "#statements" }]
+    },
+    "regex": {
+      "patterns":[{
+        "name": "string.regex.double.corvin",
+        "begin": "[rR]\"",
+        "end": "\"([[:alnum:]]*)",
+        "endCaptures": { "1": { "name": "keyword.other.corvin" } },
+        "patterns": [
+          {
+            "name": "constant.character.escape.corvin",
+            "match": "\\\\."
+          }
+        ]
+      }, {
+        "name": "string.regex.single.corvin",
+        "begin": "[rR]'",
+        "end": "'([[:alnum:]]*)",
+        "endCaptures": { "1": { "name": "keyword.other.corvin" } },
+        "patterns": [
+          {
+            "name": "constant.character.escape.corvin",
+            "match": "\\\\."
+          }
+        ]
+      }]
+    },
+    "templateregex": {
+      "patterns":[{
+        "name": "string.interpolated.regex.double.corvin",
+        "begin": "([rR][fF]|[fF][rR])\"",
+        "end": "\"([[:alnum:]]*)",
+        "endCaptures": { "1": { "name": "keyword.other.corvin" } },
+        "patterns": [
+          { "include": "#templateregex-element" },
+          { "include": "#regexp" },
+          {
+            "name": "constant.character.escape.corvin",
+            "match": "\\\\."
+          }
+        ]
+      }, {
+        "name": "string.interpolated.regex.single.corvin",
+        "begin": "([rR][fF]|[fF][rR])'",
+        "end": "'([[:alnum:]]*)",
+        "endCaptures": { "1": { "name": "keyword.other.corvin" } },
+        "patterns": [
+          { "include": "#templateregex-element" },
+          { "include": "#regexp" },
+          {
+            "name": "constant.character.escape.corvin",
+            "match": "\\\\."
+          }
+        ]
+      }]
+    },
+    "templateregex-element": {
+      "name": "meta.interpolated.expression.corvin",
+      "begin": "\\{{",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.interpolated.begin.corvin"
+        }
+      },
+      "end": "\\}}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.interpolated.end.corvin"
+        }
+      },
+      "patterns": [{ "include": "#statements" }]
+    },
+    "regexp": {
+      "patterns": [
+        {
+          "name": "keyword.control.anchor.regexp",
+          "match": "\\\\[bB]|\\^|\\$"
+        },
+        {
+          "name": "keyword.other.back-reference.regexp",
+          "match": "\\\\[1-9]\\d*"
+        },
+        {
+          "name": "keyword.operator.quantifier.regexp",
+          "match": "[?+*]|\\{(\\d+,\\d+|\\d+,|,\\d+|\\d+)\\}\\??"
+        },
+        {
+          "name": "keyword.operator.or.regexp",
+          "match": "\\|"
+        },
+        {
+          "name": "meta.group.assertion.regexp",
+          "begin": "(\\()((\\?=)|(\\?!))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.group.regexp"
+            },
+            "2": {
+              "name": "punctuation.definition.group.assertion.regexp"
+            },
+            "3": {
+              "name": "meta.assertion.look-ahead.regexp"
+            },
+            "4": {
+              "name": "meta.assertion.negative-look-ahead.regexp"
+            }
+          },
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.group.regexp"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#regexp"
+            }
+          ]
+        },
+        {
+          "name": "meta.group.regexp",
+          "begin": "\\((\\?:)?",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.group.regexp"
+            },
+            "1": {
+              "name": "punctuation.definition.group.capture.regexp"
+            }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.group.regexp"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#regexp"
+            }
+          ]
+        },
+        {
+          "name": "constant.other.character-class.set.regexp",
+          "begin": "(\\[)(\\^)?",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.character-class.regexp"
+            },
+            "2": {
+              "name": "keyword.operator.negation.regexp"
+            }
+          },
+          "end": "(\\])",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.character-class.regexp"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.other.character-class.range.regexp",
+              "match": "(?:.|(\\\\(?:[0-7]{3}|x\\h\\h|u\\h\\h\\h\\h))|(\\\\c[A-Z])|(\\\\.))\\-(?:[^\\]\\\\]|(\\\\(?:[0-7]{3}|x\\h\\h|u\\h\\h\\h\\h))|(\\\\c[A-Z])|(\\\\.))",
+              "captures": {
+                "1": {
+                  "name": "constant.character.numeric.regexp"
+                },
+                "2": {
+                  "name": "constant.character.control.regexp"
+                },
+                "3": {
+                  "name": "constant.character.escape.backslash.regexp"
+                },
+                "4": {
+                  "name": "constant.character.numeric.regexp"
+                },
+                "5": {
+                  "name": "constant.character.control.regexp"
+                },
+                "6": {
+                  "name": "constant.character.escape.backslash.regexp"
+                }
+              }
+            },
+            {
+              "include": "#regex-character-class"
+            }
+          ]
+        },
+        {
+          "include": "#regex-character-class"
+        }
+      ]
+    },
+    "regex-character-class": {
+      "patterns": [
+        {
+          "name": "constant.other.character-class.regexp",
+          "match": "\\\\[wWsSdDtrnvf]|\\."
+        },
+        {
+          "name": "constant.character.numeric.regexp",
+          "match": "\\\\([0-7]{3}|x\\h\\h|u\\h\\h\\h\\h)"
+        },
+        {
+          "name": "constant.character.control.regexp",
+          "match": "\\\\c[A-Z]"
+        },
+        {
+          "name": "constant.character.escape.backslash.regexp",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "comment":{
+      "patterns": [
+        {
+          "name": "comment.line.documentation.corvin",
+          "begin": "///",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.corvin"
+            }
+          },
+          "end": "(?=$)",
+          "patterns": [
+            { "include": "#doc-comment" }
+          ]
+        },
+        {
+          "name": "comment.line.corvin",
+          "begin": "//",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.corvin"
+            }
+          },
+          "end": "(?=$)"
+        }
+      ]
+    },
+    "blockcomment": {
+      "patterns": [
+        {
+          "name": "comment.block.documentation.corvin",
+          "begin": "/\\*\\*(?!/)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.corvin"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.corvin"
+            }
+          },
+          "patterns": [
+            { "include": "#doc-comment" }
+          ]
+        },
+        {
+          "name": "comment.block.corvin",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.corvin"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.corvin"
+            }
+          },
+          "patterns": [
+            { "include": "#blockcomment" },
+            {
+              "name": "comment.block.corvin",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "doc-comment": {
+      "patterns": [{
+        "name": "storage.type.class.jsdoc",
+        "match": "(@[[:alnum:]]+)"
+      }]
+    },
+    "literal": {
+      "name": "literal.corvin",
+      "patterns": [
+        { "include": "#numeric-literal" },
+        { "include": "#boolean-literal" },
+        { "include": "#numericConstant-literal" },
+        { "include": "#this-literal" }
+      ]
+    },
+    "numeric-literal": {
+      "patterns": [
+        {
+          "match": "(?x)\n(?<!\\$)0[xX](?:\n  (?:\\b[0-9A-Fa-f]+(\\.)[0-9A-Fa-f]+[pP][+-]?[0-9A-Fa-f]+\\b)| # 1.1E+3\n  (?:\\b[0-9A-Fa-f]+(\\.)[pP][+-]?[0-9A-Fa-f]+\\b)|       # 1.E+3\n  (?:\\B(\\.)[0-9A-Fa-f]+[pP][+-]?[0-9A-Fa-f]+\\b)|       # .1E+3\n  (?:\\b[0-9A-Fa-f]+[pP][+-]?[0-9A-Fa-f]+\\b)|            # 1E+3\n  (?:\\b[0-9A-Fa-f]+(\\.)[0-9A-Fa-f]+\\b)|                # 1.1\n  (?:\\b[0-9A-Fa-f]+(\\.)\\B)|                      # 1.\n  (?:\\B(\\.)[0-9A-Fa-f]+\\b)|                      # .1\n  (?:\\b[0-9A-Fa-f]+\\b(?!\\.))                     # 1\n)(?!\\$)",
+          "captures": {
+            "0": { "name": "constant.numeric.hex.corvin" },
+            "1": { "name": "meta.delimiter.decimal.hex.corvin" },
+            "2": { "name": "meta.delimiter.decimal.hex.corvin" },
+            "3": { "name": "meta.delimiter.decimal.hex.corvin" },
+            "4": { "name": "meta.delimiter.decimal.hex.corvin" },
+            "5": { "name": "meta.delimiter.decimal.hex.corvin" },
+            "6": { "name": "meta.delimiter.decimal.hex.corvin" }
+          }
+        },
+        {
+          "match": "(?x)\n(?<!\\$)0[bB](?:\n  (?:\\b[01]+(\\.)[01]+[eE][+-]?[01]+\\b)| # 1.1E+3\n  (?:\\b[01]+(\\.)[eE][+-]?[01]+\\b)|       # 1.E+3\n  (?:\\B(\\.)[01]+[eE][+-]?[01]+\\b)|       # .1E+3\n  (?:\\b[01]+[eE][+-]?[01]+\\b)|            # 1E+3\n  (?:\\b[01]+(\\.)[01]+\\b)|                # 1.1\n  (?:\\b[01]+(\\.)\\B)|                      # 1.\n  (?:\\B(\\.)[01]+\\b)|                      # .1\n  (?:\\b[01]+\\b(?!\\.))                     # 1\n)(?!\\$)",
+          "captures": {
+            "0": { "name": "constant.numeric.binary.corvin" },
+            "1": { "name": "meta.delimiter.decimal.binary.corvin" },
+            "2": { "name": "meta.delimiter.decimal.binary.corvin" },
+            "3": { "name": "meta.delimiter.decimal.binary.corvin" },
+            "4": { "name": "meta.delimiter.decimal.binary.corvin" },
+            "5": { "name": "meta.delimiter.decimal.binary.corvin" },
+            "6": { "name": "meta.delimiter.decimal.binary.corvin" }
+          }
+        },
+        {
+          "match": "(?x)\n(?<!\\$)0[oO](?:\n  (?:\\b[0-7]+(\\.)[0-7]+[eE][+-]?[0-7]+\\b)| # 1.1E+3\n  (?:\\b[0-7]+(\\.)[eE][+-]?[0-7]+\\b)|       # 1.E+3\n  (?:\\B(\\.)[0-7]+[eE][+-]?[0-7]+\\b)|       # .1E+3\n  (?:\\b[0-7]+[eE][+-]?[0-7]+\\b)|            # 1E+3\n  (?:\\b[0-7]+(\\.)[0-7]+\\b)|                # 1.1\n  (?:\\b[0-7]+(\\.)\\B)|                      # 1.\n  (?:\\B(\\.)[0-7]+\\b)|                      # .1\n  (?:\\b[0-7]+\\b(?!\\.))                     # 1\n)(?!\\$)",
+          "captures": {
+            "0": { "name": "constant.numeric.octal.corvin" },
+            "1": { "name": "meta.delimiter.decimal.octal.corvin" },
+            "2": { "name": "meta.delimiter.decimal.octal.corvin" },
+            "3": { "name": "meta.delimiter.decimal.octal.corvin" },
+            "4": { "name": "meta.delimiter.decimal.octal.corvin" },
+            "5": { "name": "meta.delimiter.decimal.octal.corvin" },
+            "6": { "name": "meta.delimiter.decimal.octal.corvin" }
+          }
+        },
+        {
+          "match": "(?x)\n(?<!\\$)(?:\n  (?:\\b[0-9]+(\\.)[0-9]+[eE][+-]?[0-9]+\\b)| # 1.1E+3\n  (?:\\b[0-9]+(\\.)[eE][+-]?[0-9]+\\b)|       # 1.E+3\n  (?:\\B(\\.)[0-9]+[eE][+-]?[0-9]+\\b)|       # .1E+3\n  (?:\\b[0-9]+[eE][+-]?[0-9]+\\b)|            # 1E+3\n  (?:\\b[0-9]+(\\.)[0-9]+\\b)|                # 1.1\n  (?:\\b[0-9]+(\\.)\\B)|                      # 1.\n  (?:\\B(\\.)[0-9]+\\b)|                      # .1\n  (?:\\b[0-9]+\\b(?!\\.))                     # 1\n)(?!\\$)",
+          "captures": {
+            "0": { "name": "constant.numeric.decimal.corvin" },
+            "1": { "name": "meta.delimiter.decimal.period.corvin" },
+            "2": { "name": "meta.delimiter.decimal.period.corvin" },
+            "3": { "name": "meta.delimiter.decimal.period.corvin" },
+            "4": { "name": "meta.delimiter.decimal.period.corvin" },
+            "5": { "name": "meta.delimiter.decimal.period.corvin" },
+            "6": { "name": "meta.delimiter.decimal.period.corvin" }
+          }
+        }
+      ]
+    },
+    "boolean-literal": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.true.corvin",
+          "match": "(?<!\\.|\\$)\\btrue\\b(?!\\$)"
+        },
+        {
+          "name": "constant.language.boolean.false.corvin",
+          "match": "(?<!\\.|\\$)\\bfalse\\b(?!\\$)"
+        }
+      ]
+    },
+    "this-literal": {
+      "name": "variable.language.this.corvin",
+      "match": "(?<!\\.|\\$)\\bthis\\b(?!\\$)"
+    },
+    "numericConstant-literal": {
+      "patterns": [
+        {
+          "name": "invalid.illegal.corvin",
+          "match": "(?<!\\.|\\$)\\bNaN\\b(?!\\$)"
+        },
+        {
+          "name": "constant.language.infinity.corvin",
+          "match": "(?<!\\.|\\$)\\binfinity\\b(?!\\$)"
+        },
+				{
+          "name": "invalid.illegal.corvin",
+          "match": "(?<!\\.|\\$)\\b[iI][nN][fF][iI][nN][iI][tT][yY]\\b(?!\\$)"
+        }
+      ]
+    },
+		"operator": {
+      "patterns": [
+				{
+					"name": "storage.type.function.arrow.corvin",
+					"match": "(?<!-)->(?!\\>)"
+				},
+				{
+					"name": "keyword.operator.chain.corvin",
+					"match": "\\??\\."
+				},
+				{
+					"name": "keyword.operator.assignment.corvin",
+					"match": ":\\="
+				},
+				{
+					"name": "keyword.operator.cast.corvin",
+					"match": ":"
+				},
+        {
+          "name": "keyword.operator.new.corvin",
+          "match": "(?<!\\.|\\$)\\bnew\\b(?!\\$)"
+        },
+				{
+					"name": "keyword.operator.expression.typeof.corvin",
+					"match": "(?<!\\.|\\$)\\b!?typeof\\b(?!\\$)"
+				},
+				{
+					"name": "keyword.operator.assignment.compound.arithmetic.corvin",
+					"match": "\\*\\*?=|/=|%=|\\+=|\\-="
+				},
+				{
+					"name": "keyword.operator.assignment.compound.range.corvin",
+					"match": "\\.\\.="
+				},
+				{
+					"name": "keyword.operator.assignment.compound.corvin",
+					"match": "\\+\\+="
+				},
+				{
+					"name": "keyword.operator.assignment.compound.bitwise.js",
+					"match": "\\&=|\\^=|<<=|>>=|>>>=|\\|="
+				},
+				{
+					"name": "keyword.operator.assignment.compound.logical.js",
+					"match": "\\&\\&=|\\^\\^=|\\|\\|="
+				},
+				{
+					"name": "keyword.operator.assignment.compound.alternative.js",
+					"match": "\\?\\?="
+				},
+				{
+					"name": "keyword.operator.alternative.corvin",
+					"match": "\\?\\?"
+				},
+				{
+					"name": "keyword.operator.optional.corvin",
+					"match": "\\?"
+				},
+				{
+					"name": "keyword.operator.spread.corvin",
+					"match": "\\.\\.\\."
+				},
+				{
+					"name": "keyword.operator.range.corvin",
+					"match": "\\.\\."
+				},
+				{
+					"name": "keyword.operator.bitwise.shift.corvin",
+					"match": "<<|>>>|>>"
+				},
+				{
+					"name": "keyword.operator.comparison.corvin",
+					"match": "===|!==|==|!="
+				},
+				{
+					"name": "keyword.operator.relational.corvin",
+					"match": "<=|>=|<|>|<=>"
+				},
+				{
+					"name": "keyword.operator.logical.corvin",
+					"match": "\\!|\\^\\^|&&|\\|\\|"
+				},
+				{
+					"name": "keyword.operator.bitwise.corvin",
+					"match": "\\&|~|\\^|\\|"
+				},
+				{
+					"name": "keyword.operator.assignment.corvin",
+					"match": "\\="
+				},
+				{
+					"name": "keyword.operator.decrement.corvin",
+					"match": "--"
+				},
+				{
+					"name": "keyword.operator.increment.corvin",
+					"match": "\\+\\+"
+				},
+				{
+					"name": "keyword.operator.arithmetic.corvin",
+					"match": "%|\\*|/|-|\\+"
+				}
+      ]
+    }
+  },
+  "scopeName": "source.corvin"
+}

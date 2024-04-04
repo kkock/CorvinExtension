@@ -1,0 +1,25 @@
+{
+  "name": "corvin",
+  "displayName": "Corvin Language Support",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "corvin",
+      "aliases": ["Corvin", "corvin"],
+      "extensions": [".cvn"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "corvin",
+      "scopeName": "source.corvin",
+      "path": "./syntaxes/corvin.tmLanguage.json"
+    }]
+  }
+}
