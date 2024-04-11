@@ -22,8 +22,8 @@
       "extensions": [".cvn", ".cor", ".vin"],
       "configuration": "./language-configuration.json",
       "icon": {
-        "light": "./icons/corvin-file-icon.png",
-        "dark": "./icons/corvin-file-icon.png"
+        "light": "./images/corvin-file-icon.png",
+        "dark": "./images/corvin-file-icon.png"
       }
     }],
     "grammars": [{
