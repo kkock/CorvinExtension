@@ -1,7 +1,8 @@
 {
   "name": "corvin",
-  "displayName": "Corvin Language Support",
-  "description": "",
+  "displayName": "Corvin",
+  "description": "Syntax highlighting for Corvin",
+  "publisher": "Corvin (indev)",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.87.0"
@@ -9,12 +10,21 @@
   "categories": [
     "Programming Languages"
   ],
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/kkock/CorvinExtension"
+	},
+  "icon": "./images/corvin-extension-icon.png",
   "contributes": {
     "languages": [{
       "id": "corvin",
       "aliases": ["Corvin", "corvin"],
-      "extensions": [".cvn"],
-      "configuration": "./language-configuration.json"
+      "extensions": [".cvn", ".cor", ".vin"],
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icons/corvin-file-icon.png",
+        "dark": "./icons/corvin-file-icon.png"
+      }
     }],
     "grammars": [{
       "language": "corvin",

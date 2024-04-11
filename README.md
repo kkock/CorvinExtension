@@ -1,8 +1,8 @@
-# corvin README
+# Corvin Language Support
 
-This is the README for your extension "corvin". After writing up a brief description, we recommend including the following sections.
+Syntax highlighing for Corvin files in Visual Studio Code.
 
-## Features
+<!--## Features
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
@@ -63,3 +63,4 @@ You can author your README using Visual Studio Code. Here are some useful editor
 * [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
+-->
